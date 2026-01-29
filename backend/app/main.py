@@ -7,6 +7,7 @@ import uuid
 from typing import Any, AsyncGenerator, Dict, Iterable, Optional
 
 from fastapi import FastAPI, File, Form, HTTPException, Request, UploadFile
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse, StreamingResponse
 
 from .extraction import fetch_and_extract
@@ -32,6 +33,14 @@ from .trace_store import TRACE_STORE
 
 app = FastAPI(title="Autonomous Agentic Research Platform", version="0.1.0")
 logger = setup_logging()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[os.environ.get("CORS_ALLOW_ORIGIN", "http://localhost:3000")],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 @app.on_event("startup")

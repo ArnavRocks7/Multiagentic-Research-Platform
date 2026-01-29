@@ -108,3 +108,17 @@ curl http://localhost:8000/v1/traces/trace-12345678
 ## Testing
 
 See `docs/testing.md` for test setup and sample commands.
+
+## Evaluation harness
+
+Run the baseline evaluation (API must be running):
+
+```powershell
+python -m backend.evals.run
+```
+
+Override dataset/API base:
+
+```powershell
+python -m backend.evals.run backend\\evals\\baseline.jsonl http://localhost:8000
+```
